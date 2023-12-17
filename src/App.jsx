@@ -11,6 +11,7 @@ import {
 
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import { CartProvider } from './hooks/CartContext';
 
 import Home from './Pages/Home';
 import Register from './Pages/Register';
@@ -18,10 +19,18 @@ import Login from './Pages/Login';
 import About from './Pages/About';
 import Shop from './Pages/Shop';
 import NoMatch from './Pages/NoMatch';
+import Cart from './Pages/Cart';
+
 
 function App() {
+
+  
+
+  
   return (
     <div>
+            <CartProvider>
+
       <Router>
         <BrowserRouter>
           <Route path="/" element={<Layout />}>
@@ -30,10 +39,13 @@ function App() {
             <Route path="Login" element={<Login />} />
             <Route path="Register" element={<Register />} />
             <Route path="Shop" element={<Shop />} />
+            <Route path="Cart" element={<Cart/>} />
             <Route path="*" element={<NoMatch />} />
           </Route>
         </BrowserRouter>
       </Router>
+      </CartProvider>
+
     </div>
   );
 }

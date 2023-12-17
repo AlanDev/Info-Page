@@ -33,7 +33,7 @@ const useProductsData = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const { products, info, error, isLoading } = state;
 
-  const url = ' https://api.escuelajs.co/api/v1/products';
+  const url = ' https://api.escuelajs.co/api/v1/products?offset=0&limit=12';
 
   const fetchProducts = (url) => {
     fetch(url)

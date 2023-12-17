@@ -14,7 +14,7 @@ export const Pagination = ({ prev, next, onPrevious, onNext }) => {
       {prev ? (
         <a
           href="#"
-          class="flex items-center justify-center px-4 h-10 me-3 text-base font-medium text-[#de6dc7] bg-white border border-gray-300 rounded-lg
+          className="flex items-center justify-center px-4 h-10 me-3 text-base font-medium text-[#de6dc7] bg-white border border-gray-300 rounded-lg
         hover:bg-[#de6dc7] hover:text-white transition-colors duration-200 ease-in-out"
         >
           <svg

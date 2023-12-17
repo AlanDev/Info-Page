@@ -3,6 +3,7 @@ import React from 'react'
 import Filter from '../components/Filter'
 import Products from '../components/Products'
 import useProductsData from '../hooks/Api'
+import Pagination from '../components/Pagination'
 
 function Shop() {
   const { products, info, error, isLoading, onNext, onPrevious } =
@@ -30,7 +31,6 @@ function Shop() {
   return (
     <div>
       <Filter />
-      <Products products={products} />
     </div>
   )
 }

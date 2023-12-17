@@ -83,7 +83,7 @@ const Login = () => {
               type="submit"
               className="w-full bg-[#FFCB74] p-2 rounded-full  hover:bg-black hover:text-[#FFCB74] duration-500"
             >
-              Forgot your password?
+              Sign in
              </button>
           </div>
         </form>
