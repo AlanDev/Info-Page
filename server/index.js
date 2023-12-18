@@ -9,7 +9,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-mongoose.connect("mongodb+srv://alan:alan123@cluster0.cmtzipr.mongodb.net/Usuarios", {
+mongoose.connect("mongodb+srv://<cuenta>.cmtzipr.mongodb.net/Usuarios", {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
