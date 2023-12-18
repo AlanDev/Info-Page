@@ -6,7 +6,7 @@ import {
   Link,
   Outlet,
   useLocation,
-  
+
 } from 'react-router-dom';
 
 import Navbar from './components/Navbar';
@@ -24,26 +24,25 @@ import Cart from './Pages/Cart';
 
 function App() {
 
-  
 
-  
+
+
   return (
     <div>
-            <CartProvider>
-
-      <Router>
-        <BrowserRouter>
-          <Route path="/" element={<Layout />}>
-            <Route index element={<Home />} />
-            <Route path="About" element={<About />} />
-            <Route path="Login" element={<Login />} />
-            <Route path="Register" element={<Register />} />
-            <Route path="Shop" element={<Shop />} />
-            <Route path="Cart" element={<Cart/>} />
-            <Route path="*" element={<NoMatch />} />
-          </Route>
-        </BrowserRouter>
-      </Router>
+      <CartProvider>
+        <Router>
+          <BrowserRouter>
+            <Route path="/" element={<Layout />}>
+              <Route index element={<Home />} />
+              <Route path="About" element={<About />} />
+              <Route path="Login" element={<Login />} />
+              <Route path="Register" element={<Register />} />
+              <Route path="Shop" element={<Shop />} />
+              <Route path="Cart" element={<Cart />} />
+              <Route path="*" element={<NoMatch />} />
+            </Route>
+          </BrowserRouter>
+        </Router>
       </CartProvider>
 
     </div>

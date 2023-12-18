@@ -1,18 +1,63 @@
 import React from 'react'
 import { IconArrowLeft } from '@tabler/icons-react';
-
-
-import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 
 
 const Register = () => {
+  const navigate = useNavigate(); 
 
   const backgroundStyle = {
     backgroundImage: "url('https://i.pinimg.com/564x/74/e9/f3/74e9f3144e8a2e50f49b7c4521c75351.jpg')",
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
   };
+
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [nameError, setNameError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [registrationError, setRegistrationError] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    let isValid = true;
+
+    if (!name || name.length < 4) {
+      setNameError("Name should be at least 4 characters");
+      isValid = false;
+    } else {
+      setNameError("");
+    }
+
+    if (!password || password.length < 5) {
+      setPasswordError("Password should be at least 5 characters");
+      isValid = false;
+    } else {
+      setPasswordError("");
+    }
+
+    if (!isValid) {
+      setRegistrationError("Please fix the errors in the form.");
+      return;
+    } else {
+      setRegistrationError("");
+    }
+
+    try {
+      const result = await axios.post('http://localhost:3001/register', { name, email, password });
+      console.log(result);
+      navigate('/');
+    } catch (err) {
+      console.log(err);
+      setRegistrationError("An error occurred. Please try again later.");
+    }
+  };
+
 
   return (
 
@@ -38,7 +83,9 @@ const Register = () => {
             <span className="ml-2 ">Registrate with Google</span>
           </button>
         </div>
-        <form className="flex flex-col gap-4">
+        <form className="flex flex-col gap-4"
+        onSubmit={handleSubmit}
+        >
           <div>
             <label htmlFor="name" className="text-[#111111]">
               Name *
@@ -49,7 +96,10 @@ const Register = () => {
               autoComplete="off"
               className="w-full py-2 px-4 bg-transparent border rounded-full mt-2 outline-none focus:border-[#FFCB74]"
               placeholder="Enter your name"
+              onChange={(e)=>setName(e.target.value)}
             />
+                {nameError && <div className="text-red-500 mt-2">{nameError}</div>}
+
           </div>
           <div>
             <label htmlFor="email" className="text-[#111111]">
@@ -61,6 +111,7 @@ const Register = () => {
               autoComplete="off"
               className="w-full py-2 px-4 bg-transparent border rounded-full mt-2 outline-none focus:border-[#FFCB74]"
               placeholder="Enter your Email address"
+              onChange={(e)=>setEmail(e.target.value)}
             />
           </div>
           <div>
@@ -68,12 +119,16 @@ const Register = () => {
               Password *
             </label>
             <input
+              min={5}
               type="password"
               id="password"
               autoComplete="off"
               className="w-full py-2 px-4 bg-transparent border rounded-full mt-2 outline-none focus:border-[#FFCB74]"
               placeholder="Enter your password"
+              onChange={(e)=>setPassword(e.target.value)}
             />
+            {passwordError && <div className="text-red-500 mt-2">{passwordError}</div>}
+
           </div>
           <div className="flex flex-col md:flex-row items-center justify-between gap-4 order-2 md:order-1">
             <span className="text-[#111111]">

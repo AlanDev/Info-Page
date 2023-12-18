@@ -13,6 +13,7 @@ export const CartProvider = ({ children }) => {
   const addProductToCart = (product) => {
     setSelectedProducts([...selectedProducts, product]);
     incrementCount();
+    
   };
 
   return (

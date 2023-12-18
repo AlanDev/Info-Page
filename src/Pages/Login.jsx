@@ -1,10 +1,38 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
 import { IconArrowLeft } from '@tabler/icons-react';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 
 
 const Login = () => {
+
+  const navigate = useNavigate(); 
+
+
+  const [email, setEmail] = useState()
+  const [password, setPassword] = useState()
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    axios.post('http://localhost:3001/login', { email, password })
+      .then(result => {
+        console.log(result);
+        if (result.data === "Success") {  
+          navigate('/');
+        } else {
+          alert('Login failed. Please check your credentials.');
+        }
+      })
+      .catch(err => {
+        console.log(err);
+        alert('An error occurred. Please try again later.');
+      });
+  };
+
+
 
   const backgroundStyle = {
     backgroundImage: "url('https://i.pinimg.com/564x/1d/f7/13/1df713bb8f333d47761219ca084fe3a1.jpg')",
@@ -36,7 +64,10 @@ const Login = () => {
             <span className="ml-2">Sign in with Google</span>
           </button>
         </div>
-        <form className="flex flex-col gap-4">
+        <form className="flex flex-col gap-4"
+        onSubmit={handleSubmit}
+        >
+          
           <div>
             <label htmlFor="email" className="text-[#111111]">
               Email *
@@ -47,6 +78,7 @@ const Login = () => {
               autoComplete="off"
               className="w-full py-2 px-4 bg-transparent border rounded-full mt-2 outline-none focus:border-[#FFCB74]"
               placeholder="Enter your email"
+              onChange={(e)=>setEmail(e.target.value)}
             />
           </div>
           <div>
@@ -59,6 +91,8 @@ const Login = () => {
               autoComplete="off"
               className="w-full py-2 px-4 bg-transparent border rounded-full mt-2 outline-none focus:border-[#FFCB74]"
               placeholder="Enter your password"
+              onChange={(e)=>setPassword(e.target.value)}
+
             />
           </div>
           <div className="flex flex-col md:flex-row items-center justify-between gap-4 order-2 md:order-1">
