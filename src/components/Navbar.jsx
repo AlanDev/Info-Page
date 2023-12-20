@@ -10,6 +10,8 @@ import { CartProvider, useCart } from '../hooks/CartContext';
 import { UserContext } from '../App';
 import { useNavigate } from 'react-router-dom';
 
+import { useEffect } from 'react';
+
 
 const navigation = {
   categories: [
@@ -139,14 +141,23 @@ function classNames(...classes) {
 }
 
 const Navbar = (  ) => {
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
   const { count } = useCart();
   const { user, setUser } = useContext(UserContext);
   const navigate = useNavigate();
+
   const handleLogout = () => {
+    localStorage.removeItem('user');
     setUser(null);
     navigate('/');
   };
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  }, []);
 
 
   return (

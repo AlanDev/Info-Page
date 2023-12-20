@@ -4,15 +4,12 @@ const cors = require("cors");
 const bcrypt = require("bcrypt");
 const saltRounds = 10; // Número de rondas de sal para bcrypt
 const EmployeeModel = require('./models/Employee');
-const bodyParser = require('body-parser');
-
-
 
 const app = express();
 app.use(express.json());
 app.use(cors());
 
-mongoose.connect("mongodb+srv://<cuenta>.cmtzipr.mongodb.net/Usuarios", {
+mongoose.connect("mongodb+srv://alan:alan123@cluster0.cmtzipr.mongodb.net/Usuarios", {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
@@ -62,7 +59,6 @@ app.post('/admin', (req, res) => {
   };
 
   const { adminEmail, adminPassword } = req.body;
-
   console.log('Received credentials:', adminEmail, adminPassword);
 
   if (adminEmail === adminCredentials.adminEmail && adminPassword === adminCredentials.adminPassword) {
