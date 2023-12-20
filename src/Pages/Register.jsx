@@ -1,18 +1,44 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { IconArrowLeft } from '@tabler/icons-react';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { gapi } from 'gapi-script'
+import GoogleLogin from 'react-google-login';
+import { UserContext } from '../App';
+import { useContext } from 'react';
+
 
 
 
 const Register = () => {
-  const navigate = useNavigate(); 
+  
+  const { setUser } = useContext(UserContext);
+  const navigate = useNavigate();
 
   const backgroundStyle = {
     backgroundImage: "url('https://i.pinimg.com/564x/74/e9/f3/74e9f3144e8a2e50f49b7c4521c75351.jpg')",
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
+  };
+
+  const clientID = "95543460660-ag0iv6l50ob6bgeovcgi9bodtb3t4nvo.apps.googleusercontent.com";
+
+  useEffect(() => {
+    function start() {
+      gapi.client.init({
+        clientId: clientID,
+      });
+    }
+    gapi.load("client:auth2", start);
+  }, []);
+
+  const onSuccess = (response) => {
+    console.log(response);
+  };
+
+  const onFailure = () => {
+    console.log("Something went wrong");
   };
 
   const [name, setName] = useState("");
@@ -42,7 +68,7 @@ const Register = () => {
     }
 
     if (!isValid) {
-      setRegistrationError("Please fix the errors in the form.");
+      setRegistrationError("Please check the errors in the form.");
       return;
     } else {
       setRegistrationError("");
@@ -50,12 +76,19 @@ const Register = () => {
 
     try {
       const result = await axios.post('http://localhost:3001/register', { name, email, password });
+
+      handleRegistration(result.data);
+
       console.log(result);
       navigate('/');
     } catch (err) {
       console.log(err);
       setRegistrationError("An error occurred. Please try again later.");
     }
+  };
+
+  const handleRegistration = (userData) => {
+    setUser(userData);
   };
 
 
@@ -71,17 +104,15 @@ const Register = () => {
           <p className="text-[#111111]">Register in the platform</p>
         </div>
         <div className="w-full">
-          <button
-            type="button"
-            className="w-full flex items-center justify-center gap-2 border p-2 px-4 rounded-full "
-          >
-            <img
-              src="https://cdn-icons-png.flaticon.com/512/281/281764.png"
-              width="20"
-              height="20"
-            />
-            <span className="ml-2 ">Registrate with Google</span>
-          </button>
+        <GoogleLogin
+        className='w-full  py-2 px-4'
+         
+         clientId={clientID}
+         onSuccess={onSuccess}
+         onFailure={onFailure}
+         buttonText="Register with Google"
+         cookiePolicy={"single_host_origin"}
+       />
         </div>
         <form className="flex flex-col gap-4"
         onSubmit={handleSubmit}

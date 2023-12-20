@@ -4,6 +4,9 @@ const cors = require("cors");
 const bcrypt = require("bcrypt");
 const saltRounds = 10; // Número de rondas de sal para bcrypt
 const EmployeeModel = require('./models/Employee');
+const bodyParser = require('body-parser');
+
+
 
 const app = express();
 app.use(express.json());
@@ -27,16 +30,16 @@ app.post("/login", async (req, res) => {
     if (user) {
       const match = await bcrypt.compare(password, user.password);
       if (match) {
-        res.json("Success");
+        res.json({ success: true, userName: user.name });
       } else {
-        res.json("Password incorrect");
+        res.json({ success: false, message: "Password incorrect" });
       }
     } else {
-      res.json("Account does not exist");
+      res.json({ success: false, message: "Account does not exist" });
     }
   } catch (error) {
     console.error(error);
-    res.status(500).json("Internal Server Error");
+    res.status(500).json({ success: false, message: "Internal Server Error" });
   }
 });
 
@@ -51,6 +54,24 @@ app.post('/register', async (req, res) => {
     res.status(500).json("Internal Server Error");
   }
 });
+
+app.post('/admin', (req, res) => {
+  const adminCredentials = {
+    adminEmail: 'test@test.com',
+    adminPassword: 'test123',
+  };
+
+  const { adminEmail, adminPassword } = req.body;
+
+  console.log('Received credentials:', adminEmail, adminPassword);
+
+  if (adminEmail === adminCredentials.adminEmail && adminPassword === adminCredentials.adminPassword) {
+    res.json({ message: 'Success' });
+  } else {
+    res.json({ message: 'Login failed. Please check your credentials.' });
+  }
+});
+
 
 app.listen(3001, () => {
   console.log("Servidor en ejecución en el puerto 3001");

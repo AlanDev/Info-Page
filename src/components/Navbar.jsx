@@ -4,9 +4,11 @@ import { Link } from 'react-router-dom';
 import { Fragment, useState } from 'react'
 import { Dialog, Popover, Tab, Transition } from '@headlessui/react'
 import { Bars3Icon, MagnifyingGlassIcon, ShoppingBagIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import { useContext } from 'react';
 
 import { CartProvider, useCart } from '../hooks/CartContext';
-
+import { UserContext } from '../App';
+import { useNavigate } from 'react-router-dom';
 
 
 const navigation = {
@@ -136,14 +138,16 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-
-
-
-
 const Navbar = (  ) => {
   const [open, setOpen] = useState(false)
-
   const { count } = useCart();
+  const { user, setUser } = useContext(UserContext);
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    setUser(null);
+    navigate('/');
+  };
+
 
   return (
     <div className="bg-white">
@@ -324,9 +328,6 @@ const Navbar = (  ) => {
       </div>
     </div>
 
-
-    
-
         <nav aria-label="Top" className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="border-b border-gray-200">
             <div className="flex h-16 items-center">
@@ -453,18 +454,26 @@ const Navbar = (  ) => {
               </Popover.Group>
 
               <div className="ml-auto flex items-center">
-                <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
-                  <Link to="/login" className="text-sm font-medium text-gray-700 hover:text-gray-800">
-                    Sign in
-                  </Link>
-                  <span className="h-6 w-px bg-gray-200" aria-hidden="true" />
-                  <Link to="/register" className="text-sm font-medium text-gray-700 hover:text-gray-800">
-                    Create account
-                  </Link>
-                </div>
-
-                
-
+      {user ? (
+        <>
+          <p className="text-sm font-medium text-gray-700">{`Welcome, ${user.name}`}</p>
+          <button onClick={handleLogout} className="ml-4 text-sm font-medium text-gray-700 hover:text-gray-800">
+            Logout
+          </button>
+        </>
+      ) : (
+        <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
+          <Link to="/login" className="text-sm font-medium text-gray-700 hover:text-gray-800">
+            Sign in
+          </Link>
+          <span className="h-6 w-px bg-gray-200" aria-hidden="true" />
+          <Link to="/register" className="text-sm font-medium text-gray-700 hover:text-gray-800">
+            Create account
+          </Link>
+        </div>
+      )}
+    </div>
+              
                 {/* Search */}
                 <div className="flex lg:ml-6">
                   <a href="#" className="p-2 text-gray-400 hover:text-gray-500">
@@ -487,11 +496,12 @@ const Navbar = (  ) => {
 
               </div>
             </div>
-          </div>
         </nav>
       </header>
-    </div>
+      </div>
   )
 }
+
+  
 
 export default Navbar

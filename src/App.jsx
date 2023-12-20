@@ -1,12 +1,10 @@
-import { useState } from 'react'
+import React, { createContext, useState } from 'react';
 import {
   BrowserRouter as Router,
   Route,
   Routes as BrowserRouter,
-  Link,
   Outlet,
   useLocation,
-
 } from 'react-router-dom';
 
 import Navbar from './components/Navbar';
@@ -20,41 +18,48 @@ import About from './Pages/About';
 import Shop from './Pages/Shop';
 import NoMatch from './Pages/NoMatch';
 import Cart from './Pages/Cart';
+import Admin from './Pages/Admin';
+import Dashboard from './Pages/Dashboard';
 
+export const UserContext = createContext();
 
 function App() {
-
-
-
+  const [user, setUser] = useState(null);
 
   return (
     <div>
-      <CartProvider>
-        <Router>
-          <BrowserRouter>
-            <Route path="/" element={<Layout />}>
-              <Route index element={<Home />} />
-              <Route path="About" element={<About />} />
-              <Route path="Login" element={<Login />} />
-              <Route path="Register" element={<Register />} />
-              <Route path="Shop" element={<Shop />} />
-              <Route path="Cart" element={<Cart />} />
-              <Route path="*" element={<NoMatch />} />
-            </Route>
-          </BrowserRouter>
-        </Router>
-      </CartProvider>
-
+      <UserContext.Provider value={{ user, setUser }}>
+        <CartProvider>
+          <Router>
+            <BrowserRouter>
+              <Route path="/" element={<Layout />}>
+                <Route index element={<Home />} />
+                <Route path="About" element={<About />} />
+                <Route path="Login" element={<Login />} />
+                <Route path="Register" element={<Register />} />
+                <Route path="Shop" element={<Shop />} />
+                <Route path="Cart" element={<Cart />} />
+                <Route path="Admin" element={<Admin />} />
+                <Route path="Dashboard" element={<Dashboard />} />
+                <Route path="*" element={<NoMatch />} />
+              </Route>
+            </BrowserRouter>
+          </Router>
+        </CartProvider>
+      </UserContext.Provider>
     </div>
   );
 }
-
 const Layout = ({ showNavbarAndFooter = true }) => {
   const location = useLocation();
   const isLoginPage = location.pathname === '/login';
   const isRegisterPage = location.pathname === '/register';
+  const isAdminPage = location.pathname === '/admin';
+  const isDashboardPage = location.pathname === '/dashboard';
 
-  if (isLoginPage || isRegisterPage) {
+
+
+  if (isLoginPage || isRegisterPage || isAdminPage || isDashboardPage) {
     return <div><Outlet /></div>;
   }
 
