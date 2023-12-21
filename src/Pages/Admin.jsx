@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { useAdminContext } from '../hooks/AdminContext';
+
 import { useNavigate } from 'react-router-dom';
 
 const Admin = () => {
@@ -9,22 +11,31 @@ const Admin = () => {
   const [adminEmail, setAdminEmail] = useState('');
   const [adminPassword, setAdminPassword] = useState('');
 
-  const handleSubmit = (e) => {
+  
+  const { loginAdmin } = useAdminContext();
+
+  
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Sending credentials:', { adminEmail, adminPassword });
-    axios.post('http://localhost:3001/admin', { adminEmail, adminPassword })
-      .then(result => {
-        console.log(result);
-        if (result.data.message === 'Success') {
-          navigate('/dashboard');
-        } else {
-          alert('Login failed. Please check your credentials.');
-        }
-      })
-      .catch(err => {
-        console.error('Axios error:', err);
-        alert('An error occurred. Please try again later.');
+
+    // Aquí deberías hacer la solicitud al backend para autenticar al administrador
+    try {
+      // Simulando una solicitud al servidor
+      const response = await axios.post('http://localhost:3001/admin', {
+        adminEmail , adminPassword
       });
+
+      if (response.data.message === 'Success') {
+        loginAdmin();
+        navigate('/dashboard');
+      } else {
+        alert('Login failed. Please check your credentials.');
+      }
+    } catch (error) {
+      console.error('Axios error:', error);
+      alert('An error occurred. Please try again later.');
+    }
   };
 
   return (

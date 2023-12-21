@@ -1,5 +1,10 @@
 import React, { useState } from "react";
 import { ShoppingBagIcon} from '@heroicons/react/24/outline'
+import { AdminContext} from '../../hooks/AdminContext';
+import { Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { useContext } from "react";
+
 
 // Icons
 import {
@@ -13,8 +18,20 @@ import {
 
 import { Link } from "react-router-dom";
 
+
 const Sidebar = () => {
+  const navigate = useNavigate(); 
+
   const [showMenu, setShowMenu] = useState(false);
+  const { isAdminAuthenticated, loginAdmin, logoutAdmin } = useContext(AdminContext)
+
+  const handleLogout = (e) => {
+    e.preventDefault();
+    localStorage.removeItem('Admin');
+    logoutAdmin();
+    navigate('/');
+  };
+
   return (
     <>
       <div
@@ -63,7 +80,9 @@ const Sidebar = () => {
             </a>
           </nav>
           <div className="bg-primary-900/50 text-white p-4 rounded-xl">
-            <button className="text-gray-300 rounded px-8 py-2 border inline-flex hover:text-gray-700">Logout</button>
+            <button 
+            onClick={handleLogout}
+            className="text-gray-300 rounded px-8 py-2 border inline-flex hover:text-gray-700">Logout</button>
           </div>
         </div>
       </div>

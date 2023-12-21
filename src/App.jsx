@@ -10,7 +10,9 @@ import {
 
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+
 import { CartProvider } from './hooks/CartContext';
+import { AdminProvider } from './hooks/AdminContext';
 
 import Home from './Pages/Home';
 import Register from './Pages/Register';
@@ -26,16 +28,13 @@ export const UserContext = createContext();
 
 function App() {
   const [user, setUser] = useState(null);
-
-
-
   return (
     <div>
-      <UserContext.Provider value={{ user, setUser }}>
-        <CartProvider>
-          <AuthProvider>
-            <Router>
-              <BrowserRouter>
+    <UserContext.Provider value={{ user, setUser }}>
+      <CartProvider>
+        <Router>
+          <AdminProvider>
+            <BrowserRouter>
                 <Route path="/" element={<Layout />}>
                   <Route index element={<Home />} />
                   <Route path="About" element={<About />} />
@@ -43,26 +42,16 @@ function App() {
                   <Route path="Register" element={<Register />} />
                   <Route path="Shop" element={<Shop />} />
                   <Route path="Cart" element={<Cart />} />
-
-                  <Route path="Admin" element={<Admin />} />
-                  <Route
-                    path="Dashboard"
-                    element={
-                      <ProtectedRoute>
-                        {/* Use the child route for Dashboard */}
-                        <Route index element={<Dashboard />} />
-                      </ProtectedRoute>
-                    }
-                  />
-
+                  <Route path="/Admin" element={<Admin />} />
+                  <Route path="/Dashboard" element={<Dashboard />} />
                   <Route path="*" element={<NoMatch />} />
                 </Route>
-              </BrowserRouter>
-            </Router>
-          </AuthProvider>
-        </CartProvider>
-      </UserContext.Provider>
-    </div>
+            </BrowserRouter>
+          </AdminProvider>
+        </Router>
+      </CartProvider>
+    </UserContext.Provider>
+  </div>
   );
 }
 
@@ -84,35 +73,6 @@ const Layout = ({ showNavbarAndFooter = true }) => {
       {showNavbarAndFooter && <Footer />}
     </div>
   );
-};
-
-function ProtectedRoute({ children }) {
-  const { user } = useContext(UserContext);
-  const currentLocation = useLocation();
-
-  const isAdmin =
-    user &&
-    user.email ==='test@test.com' &&
-    user.password ==='test123';
-
-  if (!isAdmin) {
-    return <Navigate to="/" state={{ from: currentLocation }} replace />;
-  } 
-    return  children;
-  
-}
-
-const AuthContext = React.createContext();
-
-const AuthProvider = ({ children }) => {
-  const [admin, setAdmin] = useState(null);
-
-  const value = {
-    admin,
-    setAdmin,
-  };
-
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 
 export default App;

@@ -54,8 +54,8 @@ app.post('/register', async (req, res) => {
 
 app.post('/admin', (req, res) => {
   const adminCredentials = {
-    adminEmail: 'test@test.com',
-    adminPassword: 'test123',
+    adminEmail: 'admin@mail.com',
+    adminPassword: 'admin123',
   };
 
   const { adminEmail, adminPassword } = req.body;
@@ -69,6 +69,6 @@ app.post('/admin', (req, res) => {
 });
 
 
-app.listen(3001, () => {
+app.listen(process.env.PORT || 3001, () => {
   console.log("Servidor en ejecución en el puerto 3001");
 });
