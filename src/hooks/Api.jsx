@@ -16,7 +16,7 @@ const reducer = (state, action) => {
     isLoading: false,
     error: '',
     products: action.payload, // Update this line
-    info: action.payload.info,
+    info: { ...state.info, ...action.payload.info }, // Actualiza esta línea
   };
     case 'ERROR':
       return {

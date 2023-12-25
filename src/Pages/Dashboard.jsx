@@ -11,17 +11,11 @@ import { RiLineChartLine, RiHashtag } from "react-icons/ri";
 function Dashboard() {
 
   const { isAdminAuthenticated } = useAdminContext();
-  // Si no está autenticado como admin, redirige a la página de inicio de sesión
   if (!isAdminAuthenticated) {
     return <Navigate to="/admin" />;
   }
 
-  const handleLogout = (e) => {
-    e.preventDefault();
-    localStorage.removeItem('Admin');
-    setAdmin(null);
-    navigate("/");
-  }
+  
 
 
   return (

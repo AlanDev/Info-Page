@@ -1,13 +1,11 @@
-import React from 'react'
-
-import Filter from '../components/Filter'
-import Products from '../components/Products'
-import useProductsData from '../hooks/Api'
-import Pagination from '../components/Pagination'
+import React from 'react';
+import Filter from '../components/Filter';
+import Products from '../components/Products';
+import useProductsData from '../hooks/Api';
+import Pagination from '../components/Pagination';
 
 function Shop() {
-  const { products, info, error, isLoading, onNext, onPrevious } =
-    useProductsData();
+  const { products, info, error, isLoading, onNext, onPrevious } = useProductsData();
 
   if (isLoading) {
     return (
@@ -21,7 +19,7 @@ function Shop() {
     return (
       <div>
         <p className="text-center mt-72 text-4xl font-bold text-[#212121] ">
-        An error has occurred
+          An error has occurred
         </p>
         <p>{error}</p>
       </div>
@@ -32,7 +30,7 @@ function Shop() {
     <div>
       <Filter />
     </div>
-  )
+  );
 }
 
-export default Shop
+export default Shop;

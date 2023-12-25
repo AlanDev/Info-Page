@@ -4,8 +4,6 @@ import { IconArrowLeft } from '@tabler/icons-react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { gapi } from 'gapi-script'
-import GoogleLogin from 'react-google-login';
 import { UserContext } from '../App';
 import { useContext } from 'react';
 
@@ -16,27 +14,6 @@ const Login = () => {
 
   const navigate = useNavigate(); 
   const { setUser } = useContext(UserContext);
-
-  const clientID = "95543460660-ag0iv6l50ob6bgeovcgi9bodtb3t4nvo.apps.googleusercontent.com"
-
-  useEffect(() => {
-    function start() {
-      gapi.client.init({
-        clientId: clientID,
-      });
-    }
-    gapi.load("client:auth2", start);
-  });
-
-  const onSuccess = (response) =>{
-    console.log(response)
-  }
-
-  const onFailure = () =>{
-    console.log("Something went wrong")
-  }
-
-
   const [email, setEmail] = useState()
   const [password, setPassword] = useState()
 
@@ -47,6 +24,9 @@ const Login = () => {
         console.log(result);
         if (result.data.success) {
           setUser({ name: result.data.userName });
+  
+          localStorage.setItem('user', JSON.stringify({ name: result.data.userName }));
+  
           navigate('/');
         } else {
           alert(result.data.message);
@@ -80,22 +60,9 @@ const Login = () => {
 
         
         <div className="w-full">
-        <GoogleLogin
-        className='w-full  py-2 px-4'
-         
-         clientId={clientID}
-         onSuccess={onSuccess}
-         onFailure={onFailure}
-         buttonText="Sign in with Google"
-         cookiePolicy={"single_host_origin"}
-       />
+       
         </div>
-        <form className="flex flex-col gap-4"
-        onSubmit={handleSubmit}
-        >
-
-
-          
+        <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
           <div>
             <label htmlFor="email" className="text-[#111111]">
               Email *

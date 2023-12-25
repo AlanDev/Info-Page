@@ -3,8 +3,6 @@ import { IconArrowLeft } from '@tabler/icons-react';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { gapi } from 'gapi-script'
-import GoogleLogin from 'react-google-login';
 import { UserContext } from '../App';
 import { useContext } from 'react';
 
@@ -20,25 +18,6 @@ const Register = () => {
     backgroundImage: "url('https://i.pinimg.com/564x/74/e9/f3/74e9f3144e8a2e50f49b7c4521c75351.jpg')",
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
-  };
-
-  const clientID = "95543460660-ag0iv6l50ob6bgeovcgi9bodtb3t4nvo.apps.googleusercontent.com";
-
-  useEffect(() => {
-    function start() {
-      gapi.client.init({
-        clientId: clientID,
-      });
-    }
-    gapi.load("client:auth2", start);
-  }, []);
-
-  const onSuccess = (response) => {
-    console.log(response);
-  };
-
-  const onFailure = () => {
-    console.log("Something went wrong");
   };
 
   const [name, setName] = useState("");
@@ -103,17 +82,7 @@ const Register = () => {
           <h1 className="text-4xl font-medium">Create an account</h1>
           <p className="text-[#111111]">Register in the platform</p>
         </div>
-        <div className="w-full">
-        <GoogleLogin
-        className='w-full  py-2 px-4'
-         
-         clientId={clientID}
-         onSuccess={onSuccess}
-         onFailure={onFailure}
-         buttonText="Register with Google"
-         cookiePolicy={"single_host_origin"}
-       />
-        </div>
+        
         <form className="flex flex-col gap-4"
         onSubmit={handleSubmit}
         >

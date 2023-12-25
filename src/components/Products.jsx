@@ -1,19 +1,9 @@
 import React from 'react';
-import { useState } from 'react';
+import { useCart } from '../hooks/CartContext';
+import { Link } from 'react-router-dom';
 
-import { CartProvider, useCart } from '../hooks/CartContext';
+const Products = ({ products = [] }) => {
 
-
-
-const Products = ({ products = []  }) => {
-
-  const { incrementCount } = useCart();
-
-  const { addProductToCart } = useCart();
-
-  const handleAddToCart = () => {
-    addProductToCart(products);
-  };
 
   return (
     <main>
@@ -23,32 +13,32 @@ const Products = ({ products = []  }) => {
             {products.map((product) => (
               <div key={product.id} className="">
                 <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-96">
-                    <img
-                      src={product.images}
-                      className="h-full w-full object-cover object-center lg:h-full lg:w-full"
-                      alt={product.title}
-                    />
+                  <img
+                    src={product.images}
+                    className="h-full w-full object-cover object-center lg:h-full lg:w-full"
+                    alt={product.title}
+                  />
                 </div>
                 <div className="mt-4 flex justify-between">
-                  <div className='mx-auto flex'>
-                    <h3 className=" text-[#212121] text-base font-semibold">
+                  <div className="mx-auto flex">
+                    <h3 className="text-[#212121] text-base font-semibold">
                       <p>
-                        <span aria-hidden="true" className=" inset-0" />
+                        <span aria-hidden="true" className="inset-0" />
                         {product.title}
                       </p>
                     </h3>
                   </div>
                 </div>
-                <div className='text-center'>
-                  <p className=" text-lg font-semibold text-gray-900 ">${product.price}</p>
-                  <button
-                    className='bg-[#101110] text-[#fefeff] rounded py-2 px-[88px] hover:text-[#595958]'
-                    onClick={incrementCount && handleAddToCart}
-                  >
-                    Add to Cart
-                  </button>
-                  </div>
-                  
+                <div className="text-center">
+                  <p className="text-lg font-semibold text-gray-900 ">${product.price}</p>
+                  <Link to={`/shop/details/${product.id}`}>
+                    <button
+                      className="bg-gray-900 text-[#fefeff] rounded py-2 px-[105px] hover:bg-gray-700"
+                    >
+                      Details
+                    </button>
+                  </Link>
+                </div>
               </div>
             ))}
           </div>

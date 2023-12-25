@@ -18,10 +18,8 @@ const Admin = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // Aquí deberías hacer la solicitud al backend para autenticar al administrador
+    
     try {
-      // Simulando una solicitud al servidor
       const response = await axios.post('http://localhost:3001/admin', {
         adminEmail , adminPassword
       });
