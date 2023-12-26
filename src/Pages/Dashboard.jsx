@@ -4,6 +4,10 @@ import { useContext } from "react";
 import { AdminContext, useAdminContext } from '../hooks/AdminContext';
 import { Navigate } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import Products from '../components/Products';  
+import ProductCreation from './ProductCreation';  
 
 
 import { RiLineChartLine, RiHashtag } from "react-icons/ri";
@@ -14,6 +18,8 @@ function Dashboard() {
   if (!isAdminAuthenticated) {
     return <Navigate to="/admin" />;
   }
+
+  
 
   
 

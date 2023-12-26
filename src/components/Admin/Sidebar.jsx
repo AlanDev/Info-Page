@@ -59,13 +59,13 @@ const Sidebar = () => {
             >
               <RiHome3Line /> Home
             </Link>
-            <a
-              href="#"
+            <Link
+              to="/dashboard/products"
               className="flex items-center gap-4 text-gray-300 py-2 px-4 rounded-xl hover:bg-primary-900/50 transition-colors"
             >
               <ShoppingBagIcon className="h-4 w-4 flex-shrink-0 text-gray-400 group-hover:text-gray-500"/>
               Products
-            </a>
+            </Link>
             <a
               href="#"
               className="flex items-center gap-4 text-gray-300 py-2 px-4 rounded-xl hover:bg-primary-900/50 transition-colors"

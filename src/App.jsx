@@ -24,6 +24,7 @@ import Cart from './Pages/Cart';
 import Admin from './Pages/Admin';
 import Dashboard from './Pages/Dashboard';
 import Details from './Pages/Details';
+import ProductCreation from './Pages/ProductCreation';
 
 export const UserContext = createContext();
 
@@ -75,6 +76,7 @@ function App() {
                   <Route path="Cart" element={<Cart />} />
                   <Route path="Admin" element={<Admin />} />
                   <Route path="Dashboard" element={<Dashboard />} />
+                  <Route path="/dashboard/products" element={<ProductCreation />} />
                   <Route path="*" element={<NoMatch />} />
                 </Route>
             </BrowserRouter>
@@ -92,8 +94,10 @@ const Layout = ({ showNavbarAndFooter = true }) => {
   const isRegisterPage = location.pathname === '/register';
   const isAdminPage = location.pathname === '/admin';
   const isDashboardPage = location.pathname === '/dashboard';
+  const isProductCreation = location.pathname === '/dashboard/products';
 
-  if (isLoginPage || isRegisterPage || isAdminPage || isDashboardPage) {
+
+  if (isLoginPage || isRegisterPage || isAdminPage || isDashboardPage || isProductCreation) {
     return <div><Outlet /></div>;
   }
 

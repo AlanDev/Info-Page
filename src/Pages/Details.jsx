@@ -54,7 +54,19 @@ const Details = ({ products = [] }) => {
               alt={selectedProduct.title}
               className="h-full w-full object-cover object-center"
             />}
+            
+            
           </div>
+          {selectedProduct &&<img
+              src={selectedProduct.images[1]}
+              alt={selectedProduct.title[1]}
+              className="h-full w-full object-cover object-center aspect-h-5 aspect-w-4 lg:aspect-h-4 lg:aspect-w-3 sm:overflow-hidden sm:rounded-lg"
+            />}
+            {selectedProduct &&<img
+              src={selectedProduct.images[2]}
+              alt={selectedProduct.title[2]}
+              className="h-full w-full object-cover object-center aspect-h-5 aspect-w-4 lg:aspect-h-4 lg:aspect-w-3 sm:overflow-hidden sm:rounded-lg  "
+            />}
         </div>
 
         <div className="mx-auto max-w-2xl px-4 pb-16 pt-10 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-8 lg:pb-24 lg:pt-16">

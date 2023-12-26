@@ -1,10 +1,7 @@
 import React from 'react';
-import { useCart } from '../hooks/CartContext';
 import { Link } from 'react-router-dom';
 
 const Products = ({ products = [] }) => {
-
-
   return (
     <main>
       <div className="bg-white">

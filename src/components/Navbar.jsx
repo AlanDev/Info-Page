@@ -140,7 +140,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-const Navbar = (  ) => {
+const Navbar = () => {
   const [open, setOpen] = useState(false);
   const { count } = useCart();
   const { user, setUser } = useContext(UserContext);
@@ -159,7 +159,7 @@ const Navbar = (  ) => {
     }
   }, []);
 
-  
+
 
 
   return (
@@ -207,8 +207,9 @@ const Navbar = (  ) => {
                   <div className="border-b border-gray-200">
                     <Tab.List className="-mb-px flex space-x-8 px-4">
                       {navigation.categories.map((category) => (
-                        <Tab
+                        <Link
                           key={category.name}
+                          to={category.href}
                           className={({ selected }) =>
                             classNames(
                               selected ? 'border-[#FFCB74] text-[#FFCB74]' : 'border-transparent text-gray-900',
@@ -217,7 +218,7 @@ const Navbar = (  ) => {
                           }
                         >
                           {category.name}
-                        </Tab>
+                        </Link>
                       ))}
                     </Tab.List>
                   </div>
@@ -266,13 +267,14 @@ const Navbar = (  ) => {
                 </Tab.Group>
 
                 <div className="space-y-6 border-t border-gray-200 px-4 py-6">
-                  {navigation.pages.map((page) => (
-                    <div key={page.name} className="flow-root">
-                      <a href={page.href} className="-m-2 block p-2 font-medium text-gray-900">
-                        {page.name}
-                      </a>
-                    </div>
-                  ))}
+                  <Link to="/about" className="-m-2 block p-2 font-medium text-gray-900">
+                    Company
+                  </Link>
+                </div>
+                <div className="space-y-6 border-t border-gray-200 px-4 py-6">
+                  <Link to="/shop" className="-m-2 block p-2 font-medium text-gray-900">
+                    Shop
+                  </Link>
                 </div>
 
                 <div className="space-y-6 border-t border-gray-200 px-4 py-6">
@@ -294,52 +296,52 @@ const Navbar = (  ) => {
       </Transition.Root>
 
       <header className="relative bg-white">
-      <div className="relative isolate flex items-center gap-x-6 overflow-hidden bg-gray-50 px-6 py-2.5 sm:px-3.5 sm:before:flex-1">
-      <div
-        className="absolute left-[max(-7rem,calc(50%-52rem))] top-1/2 -z-10 -translate-y-1/2 transform-gpu blur-2xl"
-        aria-hidden="true"
-      >
-        <div
-          className="aspect-[577/310] w-[36.0625rem] bg-gradient-to-r from-[#212121] to-[#FFCB74] opacity-30"
-          style={{
-            clipPath:
-              'polygon(74.8% 41.9%, 97.2% 73.2%, 100% 34.9%, 92.5% 0.4%, 87.5% 0%, 75% 28.6%, 58.5% 54.6%, 50.1% 56.8%, 46.9% 44%, 48.3% 17.4%, 24.7% 53.9%, 0% 27.9%, 11.9% 74.2%, 24.9% 54.1%, 68.6% 100%, 74.8% 41.9%)',
-          }}
-        />
-      </div>
-      <div
-        className="absolute left-[max(45rem,calc(50%+8rem))] top-1/2 -z-10 -translate-y-1/2 transform-gpu blur-2xl"
-        aria-hidden="true"
-      >
-        <div
-          className="aspect-[577/310] w-[36.0625rem] bg-gradient-to-r from-[#212121] to-[#FFCB74] opacity-30"
-          style={{
-            clipPath:
-              'polygon(74.8% 41.9%, 97.2% 73.2%, 100% 34.9%, 92.5% 0.4%, 87.5% 0%, 75% 28.6%, 58.5% 54.6%, 50.1% 56.8%, 46.9% 44%, 48.3% 17.4%, 24.7% 53.9%, 0% 27.9%, 11.9% 74.2%, 24.9% 54.1%, 68.6% 100%, 74.8% 41.9%)',
-          }}
-        />
-      </div>
+        <div className="relative isolate flex items-center gap-x-6 overflow-hidden bg-gray-50 px-6 py-2.5 sm:px-3.5 sm:before:flex-1">
+          <div
+            className="absolute left-[max(-7rem,calc(50%-52rem))] top-1/2 -z-10 -translate-y-1/2 transform-gpu blur-2xl"
+            aria-hidden="true"
+          >
+            <div
+              className="aspect-[577/310] w-[36.0625rem] bg-gradient-to-r from-[#212121] to-[#FFCB74] opacity-30"
+              style={{
+                clipPath:
+                  'polygon(74.8% 41.9%, 97.2% 73.2%, 100% 34.9%, 92.5% 0.4%, 87.5% 0%, 75% 28.6%, 58.5% 54.6%, 50.1% 56.8%, 46.9% 44%, 48.3% 17.4%, 24.7% 53.9%, 0% 27.9%, 11.9% 74.2%, 24.9% 54.1%, 68.6% 100%, 74.8% 41.9%)',
+              }}
+            />
+          </div>
+          <div
+            className="absolute left-[max(45rem,calc(50%+8rem))] top-1/2 -z-10 -translate-y-1/2 transform-gpu blur-2xl"
+            aria-hidden="true"
+          >
+            <div
+              className="aspect-[577/310] w-[36.0625rem] bg-gradient-to-r from-[#212121] to-[#FFCB74] opacity-30"
+              style={{
+                clipPath:
+                  'polygon(74.8% 41.9%, 97.2% 73.2%, 100% 34.9%, 92.5% 0.4%, 87.5% 0%, 75% 28.6%, 58.5% 54.6%, 50.1% 56.8%, 46.9% 44%, 48.3% 17.4%, 24.7% 53.9%, 0% 27.9%, 11.9% 74.2%, 24.9% 54.1%, 68.6% 100%, 74.8% 41.9%)',
+              }}
+            />
+          </div>
 
 
-      <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
-        <p className="text-sm leading-6 text-gray-900">
-          <strong className="font-semibold">HOT</strong>
-          <svg viewBox="0 0 2 2" className="mx-2 inline h-0.5 w-0.5 fill-current" aria-hidden="true">
-            <circle cx={1} cy={1} r={1} />
-          </svg>
-          Join us in Chic Couronne from December 20 – 31 to see what’s coming next.
-        </p>
-        <Link
-          to="/register"
-          className="flex-none rounded-full bg-gray-900 px-3.5 py-1 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900"
-        >
-          Register now <span aria-hidden="true">&rarr;</span>
-        </Link>
-      </div>
-      <div className="flex flex-1 justify-end">
-      
-      </div>
-    </div>
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+            <p className="text-sm leading-6 text-gray-900">
+              <strong className="font-semibold">HOT</strong>
+              <svg viewBox="0 0 2 2" className="mx-2 inline h-0.5 w-0.5 fill-current" aria-hidden="true">
+                <circle cx={1} cy={1} r={1} />
+              </svg>
+              Join us in Chic Couronne from December 20 – 31 to see what’s coming next.
+            </p>
+            <Link
+              to="/register"
+              className="flex-none rounded-full bg-gray-900 px-3.5 py-1 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900"
+            >
+              Register now <span aria-hidden="true">&rarr;</span>
+            </Link>
+          </div>
+          <div className="flex flex-1 justify-end">
+
+          </div>
+        </div>
 
         <nav aria-label="Top" className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="border-b border-gray-200">
@@ -455,66 +457,66 @@ const Navbar = (  ) => {
                   ))}
 
                   {navigation.pages.map((page) => (
-                    <a
+                    <Link
                       key={page.name}
-                      href={page.href}
+                      to={page.href} 
                       className="flex items-center text-sm font-medium text-gray-700 hover:text-gray-800"
                     >
                       {page.name}
-                    </a>
+                    </Link>
                   ))}
                 </div>
               </Popover.Group>
 
               <div className="ml-auto flex items-center">
-      {user ? (
-        <>
-          <p className="text-sm font-medium text-gray-700">{`Welcome, ${user.name}`}</p>
-          <button onClick={handleLogout} className="ml-4 text-sm font-medium text-gray-700 hover:text-gray-800">
-            Logout
-          </button>
-        </>
-      ) : (
-        <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
-          <Link to="/login" className="text-sm font-medium text-gray-700 hover:text-gray-800">
-            Sign in
-          </Link>
-          <span className="h-6 w-px bg-gray-200" aria-hidden="true" />
-          <Link to="/register" className="text-sm font-medium text-gray-700 hover:text-gray-800">
-            Create account
-          </Link>
-        </div>
-      )}
-    </div>
-              
-                {/* Search */}
-                <div className="flex lg:ml-6">
-                  <a href="#" className="p-2 text-gray-400 hover:text-gray-500">
-                    <span className="sr-only">Search</span>
-                    <MagnifyingGlassIcon className="h-6 w-6" aria-hidden="true" />
-                  </a>
-                </div>
-
-                {/* Cart */}
-                <div className="ml-4 flow-root lg:ml-6">
-                  <Link to="/cart" className="group -m-2 flex items-center p-2">
-                    <ShoppingBagIcon
-                      className="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
-                      aria-hidden="true"
-                    />
-                    <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">{count}</span>
-                    <span className="sr-only">items in cart, view bag</span>
-                  </Link>
-                </div>
-
+                {user ? (
+                  <>
+                    <p className="text-sm font-medium text-gray-700">{`Welcome, ${user.name}`}</p>
+                    <button onClick={handleLogout} className="ml-4 text-sm font-medium text-gray-700 hover:text-gray-800">
+                      Logout
+                    </button>
+                  </>
+                ) : (
+                  <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
+                    <Link to="/login" className="text-sm font-medium text-gray-700 hover:text-gray-800">
+                      Sign in
+                    </Link>
+                    <span className="h-6 w-px bg-gray-200" aria-hidden="true" />
+                    <Link to="/register" className="text-sm font-medium text-gray-700 hover:text-gray-800">
+                      Create account
+                    </Link>
+                  </div>
+                )}
               </div>
+
+              {/* Search */}
+              <div className="flex lg:ml-6">
+                <a href="#" className="p-2 text-gray-400 hover:text-gray-500">
+                  <span className="sr-only">Search</span>
+                  <MagnifyingGlassIcon className="h-6 w-6" aria-hidden="true" />
+                </a>
+              </div>
+
+              {/* Cart */}
+              <div className="ml-4 flow-root lg:ml-6">
+                <Link to="/cart" className="group -m-2 flex items-center p-2">
+                  <ShoppingBagIcon
+                    className="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
+                    aria-hidden="true"
+                  />
+                  <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">{count}</span>
+                  <span className="sr-only">items in cart, view bag</span>
+                </Link>
+              </div>
+
             </div>
+          </div>
         </nav>
       </header>
-      </div>
+    </div>
   )
 }
 
-  
+
 
 export default Navbar
